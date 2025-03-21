@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addItem } from "./actions/cartActions"; // Make sure you have an action file
+import { addItem } from "./CartSlice";
 import "./ProductList.css";
 
 function ProductList({ onHomeClick }) {
