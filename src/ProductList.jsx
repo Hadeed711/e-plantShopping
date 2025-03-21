@@ -1,18 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./ProductList.css";
 import CartItem from "./CartItem";
-import { addItem } from './CartSlice.jsx';
+import { useDispatch } from "react-redux"; // Import useDispatch
+import { addItem } from "./CartSlice.jsx";
+
 function ProductList({ onHomeClick }) {
+  const dispatch = useDispatch(); // Initialize useDispatch
   const [showCart, setShowCart] = useState(false);
-  const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+  const [showPlants, setShowPlants] = useState(false);
   const [addedToCart, setAddedToCart] = useState({});
-  const handleAddToCart = (product) => {
-    dispatch(addItem(product));
+
+  const handleAddToCart = (plant) => {
+    console.log("Adding to cart:", plant); // Debugging: Log the plant object
+    dispatch(addItem(plant)); // Dispatch the addItem action
     setAddedToCart((prevState) => ({
       ...prevState,
-      [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
+      [plant.name]: true, // Mark the product as added to cart
     }));
   };
+
   const plantsArray = [
     {
       category: "Air Purifying Plants",
@@ -255,21 +261,24 @@ function ProductList({ onHomeClick }) {
       ],
     },
   ];
+
   const styleObj = {
     backgroundColor: "#4CAF50",
     color: "#fff!important",
     padding: "15px",
     display: "flex",
     justifyContent: "space-between",
-    alignIems: "center",
+    alignItems: "center",
     fontSize: "20px",
   };
+
   const styleObjUl = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     width: "1100px",
   };
+
   const styleA = {
     color: "white",
     fontSize: "30px",
@@ -285,6 +294,7 @@ function ProductList({ onHomeClick }) {
     e.preventDefault();
     setShowCart(true); // Set showCart to true when cart icon is clicked
   };
+
   const handlePlantsClick = (e) => {
     e.preventDefault();
     setShowPlants(true); // Set showAboutUs to true when "About Us" link is clicked
@@ -295,6 +305,7 @@ function ProductList({ onHomeClick }) {
     e.preventDefault();
     setShowCart(false);
   };
+
   return (
     <div>
       <div className="navbar" style={styleObj}>
@@ -337,9 +348,9 @@ function ProductList({ onHomeClick }) {
                     d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8"
                     fill="none"
                     stroke="#faf9f9"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     id="mainIconPathAttribute"
                   ></path>
                 </svg>
@@ -364,7 +375,8 @@ function ProductList({ onHomeClick }) {
                       alt={plant.name}
                     />
                     <div className="product-title">{plant.name}</div>
-                    {/*Similarly like the above plant.name show other details like description and cost*/}
+                    <div className="product-description">{plant.description}</div>
+                    <div className="product-cost">{plant.cost}</div>
                     <button
                       className="product-button"
                       onClick={() => handleAddToCart(plant)}
@@ -385,3 +397,5 @@ function ProductList({ onHomeClick }) {
 }
 
 export default ProductList;
+
+
