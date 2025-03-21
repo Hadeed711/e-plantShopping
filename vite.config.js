@@ -6,3 +6,6 @@ export default defineConfig({
   base: "/shoppingreact",
   plugins: [react()],
 })
+
+
+
